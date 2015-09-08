@@ -1,14 +1,22 @@
-import React from 'react';
-var Hello = require('./components/hello.jsx');
+window.React = require( 'react' );
+var Header = require( './components/header/header.jsx' );
+var PagesTable = require( './components/container/pages.table.jsx' );
+var MainModal = require( './components/modals/main.modal.jsx' );
+//var ConfirmModal = require ( './components/modals/confirm.modal.jsx' );
+var ApiCalls = require('./utils/api.calls');
 
-var World = React.createClass({
+ApiCalls.getPages();
+
+var App = React.createClass({
     render: function(){
         return(
-            <div className="jiberish">
-                <Hello />
+            <div className="container">
+                <Header />
+                <PagesTable />
+                <MainModal />
             </div>
         );
     }
 });
 
-React.render(<World />, document.body);
+React.render( <App />, document.body );

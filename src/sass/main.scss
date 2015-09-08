@@ -1,4 +1,28 @@
+//@import "./modals/mainmodal.scss";
+
+
 body {
     background-color: yellow;
     display: flex;
+    text-align: center;
+
+}
+
+textarea {
+   resize: none;
+}
+.first-data-row{
+    border-bottom: black solid 2px;
+}
+.second-data-row{
+    border-top: rgba(0,0,0,0.2) solid 1px;
+    margin: 0;
+    /* border-bottom: grey solid 1px; */
+    padding: 10px 0px 10px 0px;
+    transition: border 0.8s ease;
+
+    &:hover {
+        border-left: rgb(0,0,10) solid 4px;
+        border-right: rgb(0,0,10) solid 4px
+    }
 }
