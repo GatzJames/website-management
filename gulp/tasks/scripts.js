@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     errorNotify = require('../utils/errorNotify'),
     webpack = require('webpack-stream'),
     webpackConfig = require('../config').webpack,
+    notify =require('gulp-notify'),
     paths = require('../config').paths;
 
 /* Scripts Task => Compile ES6 and jsx, minify the file and move it to dist */
