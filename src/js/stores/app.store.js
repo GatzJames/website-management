@@ -19,6 +19,7 @@ function _loadPages(pages_data){
 
     console.log("Loaded Pages: ", pages_data); // Test
     _pages = pages_data;
+    //_chunkedPages = 
 };
 
 //----- Store Functionality -----//
