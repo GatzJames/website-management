@@ -1,7 +1,7 @@
 window.React = require( 'react' );
 var Header = require( './components/header/header.jsx' );
 var PagesTable = require( './components/container/pages.table.jsx' );
-var MainModal = require( './components/modals/main.modal.jsx' );
+var MainModal = require( './components/modals/mainmodal/main.modal.jsx' );
 //var ConfirmModal = require ( './components/modals/confirm.modal.jsx' );
 var ApiCalls = require('./utils/api.calls');
 

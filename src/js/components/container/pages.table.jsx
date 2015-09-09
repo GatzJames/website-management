@@ -1,36 +1,21 @@
 var AppStore = require ( '../../stores/app.store.js' );
 var TableRow = require( './table.row.jsx' );
-
+var StoreMixins = require( '../../mixins/store.mixins.js' );
+var chunk = require ( 'lodash.chunk' );
 // Get Pages from App Store
-function getState(){
+function getPagesState(){
     return {
-        pages: AppStore.getPages()
+        pages: chunk( AppStore.getPages(), 10 )
     }
 }
 
 // PagesTable Component
 var PagesTable = React.createClass({
 
-    getInitialState: function (){
-            return getState();
-    },
-
-    componentWillMount: function () {
-        AppStore.addChangeListener( this._onChange )
-    },
-
-    componentWillUnmount: function() {
-        AppStore.removeChangeListener(this._onChange);
-    },
-
-    _onChange: function(){
-        this.setState( getState() );
-    },
+    mixins: [StoreMixins(getPagesState)],
 
     render: function(){
-        //
         var data = this.state.pages.map( function( page ){
-            //var statusClass = ( page.isActive ) ? "fa fa-link" : "fa fa-chain-broken" ;
             return ( <TableRow page={page} key={page.id}/> );
         });
 

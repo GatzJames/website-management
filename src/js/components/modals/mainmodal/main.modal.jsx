@@ -1,6 +1,7 @@
-var AppStore = require ( '../../stores/app.store.js' );
-var AppActions = require( '../../actions/app.actions.js' );
-var ApiCalls = require( '../../utils/api.calls.js' );
+var AppStore = require ( '../../../stores/app.store.js' );
+var AppActions = require( '../../../actions/app.actions.js' );
+var ApiCalls = require( '../../../utils/api.calls.js' );
+var StoreMixins = require( '../../../mixins/store.mixins.js' );
 //var SwitchButton = require( './switch.button.jsx' );
 
 function getModalState(){
@@ -9,21 +10,7 @@ function getModalState(){
 
 var MainModal = React.createClass({
 
-    getInitialState: function (){
-        return getModalState();
-    },
-
-    componentWillMount: function () {
-        AppStore.addChangeListener( this._onChange )
-    },
-
-    componentWillUnmount: function() {
-        AppStore.removeChangeListener(this._onChange);
-    },
-
-    _onChange: function(){
-        this.setState( getModalState() );
-    },
+    mixins: [StoreMixins(getModalState)],
 
     handleInputChange: function(){
         this.setState({

@@ -22,10 +22,12 @@ function _loadPages(pages_data){
 };
 
 //----- Store Functionality -----//
+
 // Add Page
 function _addPage( page ){
     _pages.push( page );
 };
+
 // Delete Page
 function _deletePage( id ){
     _pages.forEach( function( page, index ){
@@ -34,6 +36,7 @@ function _deletePage( id ){
         }
     })
 };
+
 // Edit existing Page
 function _editPage( newpage ){
     _pages.forEach( function( page, index ){
@@ -42,6 +45,7 @@ function _editPage( newpage ){
         }
     });
 };
+
 // Open/Close - Edit/Add modal
 function _setModal( isVisible, dataToShow ){
     if( isVisible ){
@@ -66,6 +70,7 @@ var AppStore = merge( EventEmitter.prototype, {
   removeChangeListener:function(callback){
     this.removeListener( "CHANGE_EVENT", callback )
   },
+
 // Store Functionality
   getPages:function(){
       return _pages;
