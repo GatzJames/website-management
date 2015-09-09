@@ -8,6 +8,7 @@ var _pages = [],
     ModalState = {
         _isModalVisible: false,
         _dataToShow: {},
+        _validTitle: true,
         setModalState: function (vis, data){
             this._isModalVisible = vis,
             this._dataToShow = data
@@ -72,8 +73,9 @@ var AppStore = merge( EventEmitter.prototype, {
   getModalState: function(){
     return {
         data: ModalState._dataToShow,
-        isVisible: ModalState._isModalVisible
-            };
+        isVisible: ModalState._isModalVisible,
+        validTitle: ModalState._validTitle
+        };
   },
   // Register the Dispatcher
   dispatcherIndex: AppDispatcher.register(function(payload){

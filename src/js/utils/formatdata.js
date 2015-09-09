@@ -28,7 +28,6 @@ module.exports = {
             default: page.type = 2 ;
                 break;
         };
-        page.isActive = true;
         var publishedNow = new Date();
         page.publishedOn = formatDate.toXSD( publishedNow )
         return page;

@@ -1,0 +1,52 @@
+.panel-heading{
+    display: none;
+    @media #{$tablet} {
+        display: block;
+    }
+
+}
+
+.row.data-wrapper{
+    outline: 1px black;
+    padding: 5px;
+    transition: $light-trans;
+    border-top: 1px solid $grey-transp;
+    border-bottom: 1px solid $grey-transp;
+    &:hover{
+        box-shadow: inset 0px 0px 8px -1px rgba(0,0,0,0.44);
+        transition: $light-trans-out;
+    }
+}
+
+.first-data-row{
+    padding: 10px;
+    text-align: right;
+    @media #{$tablet} {
+        text-align: center;
+    }
+    div:before{
+        content: attr(data-type);
+        width: 20px;
+        height: 20px;
+        margin: 5px;
+        text-align: left;
+        text-decoration: underline;
+        float: left;
+        display: block;
+        @media #{$tablet} {
+            visibility: hidden;
+            display: none;
+        }
+    }
+}
+
+.second-data-row{
+    border-top: 1px solid $grey-transp;
+}
+
+.button-holder{
+    .btn{
+        width: 100px;
+        margin: 5px;
+    }
+}

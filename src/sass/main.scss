@@ -1,28 +1,30 @@
-//@import "./modals/mainmodal.scss";
+// *** Bootstrap *** //
+@import "bootstrap/stylesheets/_bootstrap";
+@import "font-awesome/font-awesome";
+
+
+// *** Media Queries *** //
+$tablet: "(min-width: 768px)";
+$desktop: "(min-width: 960px)";
+
+
+// *** Pallete *** //
+$blue: #222222;
+$grey-transp: rgba(0,0,0,0.1);
+
+
+// *** Transitions *** //
+$light-trans: .3s ease all;
+$light-trans-out: .3s ease-out all;
+$medium-trans: 2s ease all;
 
 
 body {
-    background-color: yellow;
-    display: flex;
+    background-color: $grey-transp;
     text-align: center;
-
 }
 
-textarea {
-   resize: none;
-}
-.first-data-row{
-    border-bottom: black solid 2px;
-}
-.second-data-row{
-    border-top: rgba(0,0,0,0.2) solid 1px;
-    margin: 0;
-    /* border-bottom: grey solid 1px; */
-    padding: 10px 0px 10px 0px;
-    transition: border 0.8s ease;
 
-    &:hover {
-        border-left: rgb(0,0,10) solid 4px;
-        border-right: rgb(0,0,10) solid 4px
-    }
-}
+
+// *** Import all Sass *** //
+@import "components/all";

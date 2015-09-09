@@ -1,6 +1,7 @@
 var AppStore = require ( '../../stores/app.store.js' );
 var AppActions = require( '../../actions/app.actions.js' );
 var ApiCalls = require( '../../utils/api.calls.js' );
+//var SwitchButton = require( './switch.button.jsx' );
 
 function getModalState(){
     return AppStore.getModalState()
@@ -30,7 +31,7 @@ var MainModal = React.createClass({
                 title: this.refs.title.getDOMNode().value,
                 type: this.refs.type.getDOMNode().value,
                 description: this.refs.description.getDOMNode().value,
-                //isActive: this.refs.status.getDOMNode().value,
+                isActive: this.state.data.isActive,
                 id: this.state.data.id
             }
         })
@@ -41,18 +42,44 @@ var MainModal = React.createClass({
     },
 
     savePage: function () {
-        if ( typeof this.state.data.id === "undefined" ) {
-            ApiCalls.addPage(this.state.data)
-            console.log("Add Page");
+        if ( this.state.data.title === "") {
+            this.setState({ validTitle: false });
         }
-        else {
-           ApiCalls.editPage(this.state.data)
-            console.log("Edit Page");
+        else{
+            if ( typeof this.state.data.id === "undefined" ) {
+                ApiCalls.addPage(this.state.data)
+                console.log("Add Page");
+            }
+            else {
+               ApiCalls.editPage(this.state.data)
+                console.log("Edit Page");
+            }
+            this.closeModal();
         }
-        this.closeModal();
+    },
+    handleLeftClick: function(){
+        return this.setState({ data: {
+            title: this.state.data.title,
+            type: this.state.data.type,
+            description: this.state.data.description,
+            isActive: true,
+            id: this.state.data.id
+        }  })
+    },
+
+    handleRightClick: function (){
+        return this.setState({ data: {
+            title: this.state.data.title,
+            type: this.state.data.type,
+            description: this.state.data.description,
+            isActive: false,
+            id: this.state.data.id
+            }
+        })
     },
 
     render: function (){
+        console.log("ACTIVE:", this.state.data.isActive);
         var headerClass, headerText;
         if ( typeof this.state.data.id === "undefined" ){
             headerClass = "fa fa-plus";
@@ -67,6 +94,10 @@ var MainModal = React.createClass({
         var stylez = {
             display: (this.state.isVisible) ? "block" : "none"
         };
+        var titleClass = (this.state.validTitle)? "" : " has-error";
+        var switchStyle = {
+            left: (this.state.data.isActive) ? "0" : "50%"
+        }
         return(
             <div className={classes} style={stylez}>
                 <div className="modal-dialog">
@@ -79,9 +110,9 @@ var MainModal = React.createClass({
                         </div>
                         <div className="modal-body">
                             <form>
-                                <div className="form-group">
+                                <div className={"form-group" + titleClass}>
                                     <label htmlFor="form-title">Title:</label>
-                                    <input ref="title" value={this.state.data.title} onChange={this.handleInputChange} className="form-control" id="form-title"  maxLength="50"/>
+                                    <input ref="title" value={this.state.data.title} onChange={this.handleInputChange} className="form-control" id="form-title"  maxLength="50" required/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="form-type">Type:</label>
@@ -98,8 +129,11 @@ var MainModal = React.createClass({
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="form-status">Status:</label>
-                                    <div className="btn btn-default"><i className="fa fa-link"></i> Online</div>
-                                        <div className="btn btn-default">Offline <i className="fa fa-chain-broken"></i></div>
+                                    <div className="switch-button">
+                                        <span className="active" style={switchStyle}/>
+                                        <div className="switch-button-case left" onClick={this.handleLeftClick}><i className="fa fa-link"></i> Online</div>
+                                        <div className="switch-button-case right" onClick={this.handleRightClick}>Offline <i className="fa fa-chain-broken"></i></div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
