@@ -10,8 +10,8 @@ module.exports = {
     // Get all available pages
     getPages: function (){
         request.get( '', { dataType : dtype } )
-               .then( function(res, data){
-                   AppActions.loadPages( formatData.friendlyPages(data) ); // On success load Pages to View
+               .then( function(res, data){  // On success load Pages to View
+                   AppActions.loadPages( formatData.friendlyPages(data) );
                });
     },
     // Add a new Page
@@ -19,12 +19,12 @@ module.exports = {
         page = formatData.toAzurePage( page );
         console.log('PAGE-TO-ADD:', page); //Test
         request.post( '', page, {dataType: dtype })
-               .then( function(res, azurePage){
-                   console.log("pageGot: ", azurePage);
+               .then( function(res, azurePage){ // On success add Page to View
+                   console.log("pageGot: ", azurePage); // Test
                    AppActions.addPage( formatData.friendlyPage(azurePage) );
                })
                .catch(function(res, data, err){
-                   console.log(err);
+                   console.log(err); //Test
                });
     },
 
@@ -32,8 +32,8 @@ module.exports = {
     deletePage: function (id){
 
         request.delete(id)
-               .then( function( res, deletedPage ){
-                   console.log("DELETED-PAGE: ", deletedPage);
+               .then( function( res, deletedPage ){ // On success delete Page from View
+                   console.log("DELETED-PAGE: ", deletedPage); // Test
                    AppActions.deletePage( deletedPage.id );
                })
     },
@@ -42,7 +42,7 @@ module.exports = {
         console.log("EDIT-PAGE", page.id);
         page = formatData.toAzurePage( page );
         request.put(page.id, page, {dataType: dtype})
-               .then( function(){ // After Confirmation Get the page to show Data
+               .then( function(){ // After Confirmation Get the page to show it's Data
                    request.get(page.id, { dataType : dtype })
                           .then( function( res, edditedPage ){
                               AppActions.editPage( formatData.friendlyPage( edditedPage ) );

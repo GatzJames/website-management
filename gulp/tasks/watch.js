@@ -6,4 +6,5 @@ var gulp = require('gulp'),
 gulp.task('watch', function(){
     gulp.watch(paths.src.scss, ['styles']);
     gulp.watch(paths.src.html, ['html']);
+    gulp.watch(paths.src.img, ['img'])
 });

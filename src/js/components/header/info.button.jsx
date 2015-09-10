@@ -1,6 +1,6 @@
-var AddButton = React.createClass({
+var InfoButton = React.createClass({
     handleClick: function(){
-            InfoModal.open();
+        AppActions.InfoModalShow(true);
     },
     render: function(){
         return (
@@ -12,4 +12,4 @@ var AddButton = React.createClass({
 
 });
 
-module.exports = AddButton;
+module.exports = InfoButton;

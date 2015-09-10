@@ -8,7 +8,6 @@ var _pages = [],
     ModalState = {
         _isModalVisible: false,
         _dataToShow: {},
-        _validTitle: true,
         setModalState: function (vis, data){
             this._isModalVisible = vis,
             this._dataToShow = data
@@ -19,7 +18,7 @@ function _loadPages(pages_data){
 
     console.log("Loaded Pages: ", pages_data); // Test
     _pages = pages_data;
-    //_chunkedPages = 
+    //_chunkedPages =
 };
 
 //----- Store Functionality -----//
@@ -46,6 +45,7 @@ function _editPage( newpage ){
         }
     });
 };
+// Search Through Pages
 
 // Open/Close - Edit/Add modal
 function _setModal( isVisible, dataToShow ){

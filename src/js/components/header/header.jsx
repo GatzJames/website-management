@@ -15,15 +15,14 @@ var Header = React.createClass({
                         </div>
                         <ul className="nav navbar-nav navbar-right">
                             <li>
-                                <SearchBar
-                                    id="searchbar"
-                                    label="Search"
-                                    value={this.state.filterValues}
-                                    onChange={this.onFilter.bind(this, 'search')}
-                                />
+                                <SearchBar />
                             </li>
-                            <li><AddButton /></li>
-                            <li><InfoButton /></li>
+                            <li>
+                                <AddButton />
+                            </li>
+                            <li>
+                                <InfoButton />
+                            </li>
                         </ul>
                     </div>
                 </nav>
