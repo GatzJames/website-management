@@ -1,15 +1,20 @@
 // *** Bootstrap *** //
 @import "bootstrap/stylesheets/_bootstrap";
-@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
 
+// *** Fonts *** //
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed);
 
 // *** Media Queries *** //
+$phablet: "(min-width: 490px)";
 $tablet: "(min-width: 768px)";
 $desktop: "(min-width: 960px)";
 
 
 // *** Pallete *** //
 $blue: #222222;
+$dark-blue: #231f20;
+$mustard-yellow: white;
 $grey-transp: rgba(0,0,0,0.1);
 
 
@@ -18,10 +23,10 @@ $light-trans: .3s ease all;
 $light-trans-out: .3s ease-out all;
 $medium-trans: 2s ease all;
 
-
 body {
     background-color: $grey-transp;
     text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 

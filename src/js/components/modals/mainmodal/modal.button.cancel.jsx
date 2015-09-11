@@ -1,3 +1,14 @@
-<div className="btn btn-default" onClick={this.closeModal}>
-    <i className="fa fa-power-off"></i> Cancel
-</div>
+var Button = React.createClass({
+
+    render: function() {
+        return (
+            <div className={this.props.className} onClick={this.props.onClick}>
+                <i className={this.props.iconName}></i>
+                {this.props.name}
+            </div>
+        );
+    }
+
+});
+
+module.exports = Button;

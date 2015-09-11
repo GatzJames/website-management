@@ -10,6 +10,8 @@ module.exports = {
                 default: page.type = "Content" ;
                     break;
             }
+            page.isActive = (page.isActive) ? "online" : "offline" ;
+            page.id = page.id.toString();
             page.publishedOn = formatDate.fromXSD( page.publishedOn );
             return page;
     },
@@ -28,6 +30,7 @@ module.exports = {
             default: page.type = 2 ;
                 break;
         };
+        page.id = parseInt(page.id);
         var publishedNow = new Date();
         page.publishedOn = formatDate.toXSD( publishedNow )
         return page;

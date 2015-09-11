@@ -11,7 +11,7 @@ function getModalState(){
 var MainModal = React.createClass({
 
     mixins: [ StoreMixins( getModalState ) ] ,
-
+/*
     handleSubmit: function(e) {
            e.preventDefault();
            var author = React.findDOMNode(this.refs.author).value.trim();
@@ -62,9 +62,10 @@ var MainModal = React.createClass({
             }
         })
     },
-
+*/
     render: function (){
-        console.log("ACTIVE:", this.state.data.isActive);
+/*
+        console.log("ACTIVE:", this.state.data.isActive); // Test
         var headerClass, headerText;
         if ( typeof this.state.data.id === "undefined" ){
             headerClass = "fa fa-plus";
@@ -82,7 +83,7 @@ var MainModal = React.createClass({
         var titleClass = (this.state.validTitle)? "" : " has-error";
         var switchStyle = {
             left: (this.state.data.isActive) ? "0" : "50%"
-        }
+        }*/
         return(
             <div className={classes} style={stylez}>
                 <div className="modal-dialog">
@@ -92,8 +93,8 @@ var MainModal = React.createClass({
                             <Form />
                         </div>
                         <div className="modal-footer">
-                            <CancelButton />
-                            <SubmitButton />
+                            <Button className="btn btn-default" iconName="fa fa-logout" name="Cancel" />
+                            <Button className="btn btn-default" iconName="" name="Save"/>
                         </div>
                     </div>
                 </div>

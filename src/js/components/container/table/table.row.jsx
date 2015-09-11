@@ -4,7 +4,7 @@ var Edit = require( './pages.edit.jsx' );
 var TableRow = React.createClass({
 
     render: function () {
-        var statusClass = ( this.props.page.isActive ) ? "fa fa-link" : "fa fa-chain-broken" ;
+        var statusClass = ( this.props.page.isActive === "online" ) ? "fa fa-link" : "fa fa-chain-broken" ;
         return (
             <div className="row data-wrapper">
                 <div className="col-xs-12 first-data-row">

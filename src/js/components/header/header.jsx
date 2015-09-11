@@ -7,24 +7,21 @@ var Header = React.createClass({
     render: function(){
         return(
             <header>
-                <nav className="navbar navbar-inverse">
-                    <div className="container-fluid">
-                        <div className="navbar-left">
-                        <img className="navbar-brand" src="../../../img/logo.png"/>
-                        <h3>Website Management</h3>
+                <nav className="navbar">
+                    <div className="container">
+                        <div className="pull-left">
+                            <img className="navbar-brand" src="../../../img/logo.png"/>
+                            <h3 className="navbar-text">Website Management</h3>
                         </div>
-                        <ul className="nav navbar-nav navbar-right">
-                            <li>
-                                <SearchBar />
-                            </li>
-                            <li>
-                                <AddButton />
-                            </li>
-                            <li>
-                                <InfoButton />
-                            </li>
-                        </ul>
+                            <SearchBar />
+                        <div className="pull-right">
+                            <AddButton />
+                            <InfoButton />
+                        </div>
+
                     </div>
+
+
                 </nav>
             </header>
         );

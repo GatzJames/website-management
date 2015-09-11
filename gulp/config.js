@@ -11,7 +11,7 @@ module.exports = {
             'jsmain' : _src + '/js/main.js',
             'scss' : _src + '/sass/**/*.{sass,scss}',
             'scssmain' : _src + '/sass/main.scss',
-            'img' : _src + '/img',
+            'img' : _src + '/img/*.{jpg,png,ico}',
             'html' : _src + '/index.html'
 
         },

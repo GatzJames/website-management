@@ -1,5 +1,5 @@
 window.React = require( 'react' );
-var App = require( 'components/app.jsx' );
+var App = require( './components/app.jsx' );
 var ApiCalls = require('./utils/api.calls');
 
 // Get Data from the Server

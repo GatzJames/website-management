@@ -6,7 +6,7 @@ var AddButton = React.createClass({
     },
     render: function(){
         return (
-            <div className="btn btn-primary" onClick={this.handleClick}>
+            <div className="btn navbar-btn" onClick={this.handleClick}>
                 <i className="fa fa-plus"></i>
             </div>
         );

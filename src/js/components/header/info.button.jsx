@@ -4,7 +4,7 @@ var InfoButton = React.createClass({
     },
     render: function(){
         return (
-            <div className="btn btn-primary" onClick={this.handleClick}>
+            <div className="btn navbar-btn" onClick={this.handleClick}>
                 <i className="fa fa-question"></i>
             </div>
         );

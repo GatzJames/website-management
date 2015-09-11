@@ -1,11 +1,11 @@
-var AppStore = require ( '../../stores/app.store.js' );
+var AppStore = require ( '../../../stores/app.store.js' );
 var TableRow = require( './table.row.jsx' );
-var StoreMixins = require( '../../mixins/store.mixins.js' );
-var chunk = require ( 'lodash.chunk' );
+var StoreMixins = require( '../../../mixins/store.mixins.js' );
+//var chunk = require ( 'lodash.chunk' );
 // Get Pages from App Store
 function getPagesState(){
     return {
-        pages: chunk( AppStore.getPages(), 10 )
+        pages: AppStore.getPages()
     }
 }
 
@@ -20,6 +20,7 @@ var PagesTable = React.createClass({
         });
 
         return (
+            <div className="container">
                 <div className="panel panel-default">
                     <div className="panel-heading">
                         <div className="row">
@@ -34,6 +35,7 @@ var PagesTable = React.createClass({
                         {data}
                     </div>
                 </div>
+            </div>
             );
     }
 });

@@ -1,5 +1,5 @@
 //var WarnModal = require('../modals/warn.modal.jsx');
-var ApiCalls = require( '../../utils/api.calls.js' );
+var ApiCalls = require( '../../../utils/api.calls.js' );
 
 var Increase = React.createClass({
     handleClick:function(){

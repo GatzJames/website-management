@@ -2,9 +2,10 @@ var AppDispatcher = require('../dispatcher/app.dispatcher');
 var AppConstants = require('../constants/app.constants');
 var merge = require('react/lib/Object.assign');
 var EventEmitter = require('events').EventEmitter;
+var _ = require('lodash');
 
 //----- Initial data -----//
-var _pages = [],
+var _pages = [], _filteredPages = [],
     ModalState = {
         _isModalVisible: false,
         _dataToShow: {},
@@ -14,14 +15,32 @@ var _pages = [],
         }
     };
 
-function _loadPages(pages_data){
+//----- Store Functionality -----//
 
+// Load the pages
+function _loadPages(pages_data){
     console.log("Loaded Pages: ", pages_data); // Test
     _pages = pages_data;
-    //_chunkedPages =
+    _filteredPages = _pages;
 };
 
-//----- Store Functionality -----//
+// Filter the pages
+function _filterPages( filterValue ){
+    var nr = new RegExp(filterValue, 'i');
+    _filteredPages = _pages.filter( function(page){
+            var x = _.map(page);
+            var y = false;
+            for (var i=0; i<x.length; i++){
+                if(x[i].match(nr)){
+                    y = true;
+                }
+            }
+            console.log("MAPPED", y);
+            return y;
+    })
+    console.log("PAGES_FILTERED", _filteredPages);
+};
+
 
 // Add Page
 function _addPage( page ){
@@ -74,7 +93,7 @@ var AppStore = merge( EventEmitter.prototype, {
 
 // Store Functionality
   getPages:function(){
-      return _pages;
+      return _filteredPages;
   },
   getModalState: function(){
     return {
@@ -98,6 +117,10 @@ var AppStore = merge( EventEmitter.prototype, {
 
         case AppConstants.DELETE_PAGE:
             _deletePage(action.id);
+        break;
+
+        case AppConstants.SEARCH_PAGES:
+            _filterPages(action.input)
         break;
 
         case AppConstants.EDIT_PAGE:

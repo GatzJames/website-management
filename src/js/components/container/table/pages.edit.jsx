@@ -1,4 +1,4 @@
-var AppActions = require( '../../actions/app.actions.js' );
+var AppActions = require( '../../../actions/app.actions.js' );
 
 var EditButton = React.createClass({
     handleClick:function(){
