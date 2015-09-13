@@ -5,23 +5,32 @@ var EventEmitter = require('events').EventEmitter;
 var _ = require('lodash');
 
 //----- Initial data -----//
-var _pages = [], _filteredPages = [],
-    ModalState = {
+var _pages = [], _filteredPages = [[]], _pageNumber=0, _pageActive=0, _InfoModal = false;
+var ModalState = {
         _isModalVisible: false,
         _dataToShow: {},
-        setModalState: function (vis, data){
+        _setModalState: function (vis, data){
             this._isModalVisible = vis,
             this._dataToShow = data
         }
     };
 
+var WarnModalState = {
+    _isModalVisible: false,
+    _pageById: null,
+    _setModalState: function ( vis, id ) {
+        this._isModalVisible = vis;
+        this._pageById = id;
+    }
+};
 //----- Store Functionality -----//
 
 // Load the pages
 function _loadPages(pages_data){
     console.log("Loaded Pages: ", pages_data); // Test
     _pages = pages_data;
-    _filteredPages = _pages;
+    _filteredPages = _.chunk(_pages , 3);
+    _pageNumber = _filteredPages.length;
 };
 
 // Filter the pages
@@ -38,6 +47,9 @@ function _filterPages( filterValue ){
             console.log("MAPPED", y);
             return y;
     })
+    _filteredPages = _.chunk(_filteredPages, 3);
+    _pageNumber = _filteredPages.length;
+    _pageActive = 0;
     console.log("PAGES_FILTERED", _filteredPages);
 };
 
@@ -64,19 +76,33 @@ function _editPage( newpage ){
         }
     });
 };
-// Search Through Pages
 
 // Open/Close - Edit/Add modal
 function _setModal( isVisible, dataToShow ){
     if( isVisible ){
-        ModalState.setModalState( true, dataToShow )
+        ModalState._setModalState( true, dataToShow )
     }
     else {
-        ModalState.setModalState( false, {} )
+        ModalState._setModalState( false, {} )
     }
 };
 
-// *** App Store *** //
+// Open/Close - Info Modal
+function _setInfoModal( isVisible ) {
+    _InfoModal = isVisible;
+}
+
+// Open/Close - Warn Modal
+function _setWarnModal(isVisible, id){
+    if( isVisible ){
+        WarnModalState._setModalState( true, id )
+    }
+    else {
+        WarnModalState._setModalState( false, null );
+    }
+}
+
+// **************************** App Store ******************************* //
 var AppStore = merge( EventEmitter.prototype, {
 // Emit Changes and add/remove Change Listeners
   emitChange:function(){
@@ -93,14 +119,42 @@ var AppStore = merge( EventEmitter.prototype, {
 
 // Store Functionality
   getPages:function(){
-      return _filteredPages;
+      if ( _filteredPages[0] != null ){
+                    console.log('i am here');
+          return _filteredPages[_pageActive];
+
+      }
+      else {
+        console.log('i am not here');
+          return [];
+      }
   },
+
   getModalState: function(){
     return {
         data: ModalState._dataToShow,
         isVisible: ModalState._isModalVisible,
         validTitle: ModalState._validTitle
         };
+  },
+
+  getInfoModalState: function () {
+      return _InfoModal;
+  },
+
+  getWarnModalState: function () {
+      return {
+          isVisible: WarnModalState._isModalVisible,
+          pageById: WarnModalState._pageById
+      }
+  },
+
+  getPaginationState: function () {
+      console.log("tried");
+      return {
+          pageNumber: _pageNumber,
+          pageActive: _pageActive
+      };
   },
   // Register the Dispatcher
   dispatcherIndex: AppDispatcher.register(function(payload){
@@ -127,8 +181,20 @@ var AppStore = merge( EventEmitter.prototype, {
             _editPage(action.page);
         break;
 
-        case AppConstants.MODAL_VISIBLE:
-            _setModal(action.isVisible, action.id);
+        case AppConstants.SET_MAIN_MODAL:
+            _setModal(action.isVisible, action.page);
+        break;
+
+        case AppConstants.SET_INFO_MODAL:
+            _setInfoModal(action.isVisible);
+        break;
+
+        case AppConstants.SET_WARN_MODAL:
+            _setWarnModal(action.isVisible, action.id)
+        break;
+
+        case AppConstants.ACTIVE_PAGE:
+            _pageActive = action.activePage;
         }
         AppStore.emitChange();
 

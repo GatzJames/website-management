@@ -2,6 +2,9 @@
     display: none;
     @media #{$tablet} {
         display: block;
+        .row{
+            padding: 0px 15px;
+        }
     }
 
 }
@@ -16,6 +19,7 @@
         box-shadow: inset 0px 0px 8px -1px rgba(0,0,0,0.44);
         transition: $light-trans-out;
     }
+
 }
 
 .first-data-row{
@@ -24,11 +28,16 @@
     @media #{$tablet} {
         text-align: center;
     }
+    .div{
+        padding: 5px;
+        @media #{$tablet}{
+        padding: 0;
+        }
+    }
     div:before{
         content: attr(data-type);
         width: 20px;
         height: 20px;
-        margin: 5px;
         text-align: left;
         text-decoration: underline;
         float: left;
@@ -39,9 +48,20 @@
         }
     }
 }
-
-.second-data-row{
+.first-data-row:hover ~ .second-data-row{
+    transition: $medium-trans max-height;
+    max-height: 500px;
     border-top: 1px solid $grey-transp;
+
+}
+.second-data-row{
+    transition: $light-trans;
+    max-height: 0;
+    overflow: hidden;
+    &:hover{
+        max-height: 500px;
+        border-top: 1px solid $grey-transp;
+    }
 }
 
 .button-holder{

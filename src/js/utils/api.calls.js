@@ -30,7 +30,8 @@ module.exports = {
 
     // Delete a page by Id
     deletePage: function (id){
-
+        //id = parseInt( id );
+        //console.log('TRIED', id);
         request.delete(id)
                .then( function( res, deletedPage ){ // On success delete Page from View
                    console.log("DELETED-PAGE: ", deletedPage); // Test

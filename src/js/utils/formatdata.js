@@ -30,7 +30,7 @@ module.exports = {
             default: page.type = 2 ;
                 break;
         };
-        page.id = parseInt(page.id);
+        //page.isActive = (page.isActive === 'online') ? true : false;
         var publishedNow = new Date();
         page.publishedOn = formatDate.toXSD( publishedNow )
         return page;

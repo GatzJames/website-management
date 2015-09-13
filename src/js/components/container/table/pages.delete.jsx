@@ -1,9 +1,10 @@
-//var WarnModal = require('../modals/warn.modal.jsx');
-var ApiCalls = require( '../../../utils/api.calls.js' );
+var AppActions = require( '../../../actions/app.actions' );
+var bootmodal = require( '../../modals/bootmodal.js' );
 
-var Increase = React.createClass({
+var Delete = React.createClass({
     handleClick:function(){
-      ApiCalls.deletePage(this.props.index);
+      AppActions.setWarnModal( true, this.props.index );
+      bootmodal.On();
     },
     render:function(){
       return (
@@ -13,4 +14,4 @@ var Increase = React.createClass({
         )
     }
   });
-module.exports = Increase;
+module.exports = Delete;

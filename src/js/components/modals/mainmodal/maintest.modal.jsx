@@ -88,13 +88,13 @@ var MainModal = React.createClass({
             <div className={classes} style={stylez}>
                 <div className="modal-dialog">
                     <div className="modal-content">
-                            <ModalHeader />
+                            <ModalHeader className={header_class} />
                         <div className="modal-body">
-                            <Form />
+                            <Form data={this.state.data} />
                         </div>
                         <div className="modal-footer">
                             <Button className="btn btn-default" iconName="fa fa-logout" name="Cancel" />
-                            <Button className="btn btn-default" iconName="" name="Save"/>
+                            <Button className="btn btn-default" iconName="fa fa-floppy-o" name="Save"/>
                         </div>
                     </div>
                 </div>

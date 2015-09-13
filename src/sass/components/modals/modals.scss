@@ -1,0 +1,32 @@
+.modal.fade{
+	display: block;
+	visibility: hidden;
+	transform: translate(0,-40%);
+	transition: $medium-trans;
+	transition-delay: 0;
+	&.in{
+		visibility: visible;
+		transform: translate(0,0);
+		transition-delay: 0s;
+	}
+	.modal-sm{
+		margin-top: 200px;
+		.modal-content{
+		padding: 20px 20px 0px 20px;
+		}
+	}
+	h5{
+		text-decoration: underline;
+	}
+	.fa.fa-plus{
+		padding-right: 2px;
+	}
+}
+
+
+textarea {
+    resize: none;
+}
+.form-group {
+    margin-bottom: 25px;
+}

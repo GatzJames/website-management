@@ -38,17 +38,17 @@ var AppActions = {
         })
     },
     // State of Edit/Add Modal
-    setMainModal: function(isVisible, id){
+    setMainModal: function(isVisible, page){
         AppDispatcher.handleAction({
-            actionType: AppConstants.MAIN_MODAL,
+            actionType: AppConstants.SET_MAIN_MODAL,
             isVisible: isVisible,
-            id: id
+            page: page
         })
     },
     //State of Warning Modal
     setWarnModal: function(isVisible, id){
         AppDispatcher.handleAction({
-            actionType: AppConstants.WARN_MODAL,
+            actionType: AppConstants.SET_WARN_MODAL,
             isVisible: isVisible,
             id: id
         })
@@ -56,8 +56,15 @@ var AppActions = {
     //Visibillity of Info Modal
     setInfoModal: function( isVisible ){
         AppDispatcher.handleAction({
-            actionType: AppConstants.INFO_MODAL,
+            actionType: AppConstants.SET_INFO_MODAL,
             isVisible: isVisible
+        })
+    },
+    //Change Page
+    activePage: function ( pageNum ) {
+        AppDispatcher.handleAction({
+            actionType: AppConstants.ACTIVE_PAGE,
+            activePage: pageNum
         })
     }
 }

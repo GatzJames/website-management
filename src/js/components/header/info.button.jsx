@@ -1,6 +1,11 @@
+var AppActions = require( '../../actions/app.actions' );
+var bootmodal = require( '../modals/bootmodal.js' );
+
 var InfoButton = React.createClass({
-    handleClick: function(){
-        AppActions.InfoModalShow(true);
+    handleClick: function () {
+        bootmodal.On();
+        AppActions.setInfoModal(true);
+
     },
     render: function(){
         return (

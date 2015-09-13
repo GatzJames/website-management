@@ -17,11 +17,10 @@ $dark-blue: #231f20;
 $mustard-yellow: white;
 $grey-transp: rgba(0,0,0,0.1);
 
-
 // *** Transitions *** //
 $light-trans: .3s ease all;
 $light-trans-out: .3s ease-out all;
-$medium-trans: 2s ease all;
+$medium-trans: 0.8s ease;
 
 body {
     background-color: $grey-transp;

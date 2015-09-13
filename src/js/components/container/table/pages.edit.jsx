@@ -1,8 +1,10 @@
 var AppActions = require( '../../../actions/app.actions.js' );
+var bootmodal = require( '../../modals/bootmodal.js' );
 
 var EditButton = React.createClass({
     handleClick:function(){
-      AppActions.isModalVisible(true, this.props.index);
+      AppActions.setMainModal(true, this.props.index);
+      bootmodal.On();
     },
     render:function(){
       return (

@@ -6,4 +6,4 @@ var ApiCalls = require('./utils/api.calls');
 ApiCalls.getPages();
 
 // Render The Application
-React.render( <App />, document.body );
+React.render( <App />, document.getElementById('app') );

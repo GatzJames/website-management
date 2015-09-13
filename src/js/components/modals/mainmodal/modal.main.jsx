@@ -2,8 +2,8 @@ var AppStore = require ( '../../../stores/app.store.js' );
 var AppActions = require( '../../../actions/app.actions.js' );
 var ApiCalls = require( '../../../utils/api.calls.js' );
 var StoreMixins = require( '../../../mixins/store.mixins.js' );
-//var SwitchButton = require( './switch.button.jsx' );
-
+//var SwitchButton = require( './modalform/switch.button.jsx' );
+var bootmodal = require( '../bootmodal' );
 function getModalState(){
     return AppStore.getModalState()
 }
@@ -25,7 +25,8 @@ var MainModal = React.createClass({
     },
 
     closeModal: function(){
-        AppActions.isModalVisible(false);
+        AppActions.setMainModal(false);
+        bootmodal.Off();
     },
 
     savePage: function () {
@@ -78,15 +79,12 @@ var MainModal = React.createClass({
         }
         console.log(this.state.data)
         var classes = (this.state.isVisible) ? "modal fade in" : "modal fade" ;
-        var stylez = {
-            display: (this.state.isVisible) ? "block" : "none"
-        };
         var titleClass = (this.state.validTitle)? "" : " has-error";
         var switchStyle = {
             left: (this.state.data.isActive) ? "0" : "50%"
         }
         return(
-            <div className={classes} style={stylez}>
+            <div className={classes}>
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -104,11 +102,10 @@ var MainModal = React.createClass({
                                 <div className="form-group">
                                     <label htmlFor="form-type">Type:</label>
                                     <select ref="type" className="form-control" id="form-type" onChange={this.handleInputChange}>
-                                    <option>Menu</option>
-                                    <option>Events</option>
-                                    <option>Content</option>
+                                        <option>Menu</option>
+                                        <option>Events</option>
+                                        <option>Content</option>
                                     </select>
-
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="form-description">Description:</label>
@@ -116,7 +113,7 @@ var MainModal = React.createClass({
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="form-status">Status:</label>
-                                    <div className="switch-button">
+                                    <div className="switch-button" id="form-status">
                                         <span className="active" style={switchStyle}/>
                                         <div className="switch-button-case left" onClick={this.handleLeftClick}><i className="fa fa-link"></i> Online</div>
                                         <div className="switch-button-case right" onClick={this.handleRightClick}>Offline <i className="fa fa-chain-broken"></i></div>
