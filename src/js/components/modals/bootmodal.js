@@ -1,5 +1,4 @@
 var backdrop = document.createElement('div');
-backdrop.class = "modal-backdrop fade in";
 
 module.exports = {
 

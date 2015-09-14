@@ -25,66 +25,66 @@ var WarnModalState = {
 };
 //----- Store Functionality -----//
 
+function reload() {
+    _filteredPages = _.chunk(_pages , 5);
+    _pageNumber = _filteredPages.length;
+    _pageActive = 0;
+}
+
 // Load the pages
 function _loadPages(pages_data){
-    console.log("Loaded Pages: ", pages_data); // Test
     _pages = pages_data;
-    _filteredPages = _.chunk(_pages , 3);
-    _pageNumber = _filteredPages.length;
+    reload();
 };
 
 // Filter the pages
 function _filterPages( filterValue ){
     var nr = new RegExp(filterValue, 'i');
     _filteredPages = _pages.filter( function(page){
-            var x = _.map(page);
-            var y = false;
-            for (var i=0; i<x.length; i++){
-                if(x[i].match(nr)){
-                    y = true;
+            var pageValues = _.map(page);
+            var check = false;
+            for (var i=0; i<pageValues.length; i++){
+                if(pageValues[i]!=null && pageValues[i].match(nr) ){
+                    check = true;
                 }
             }
-            console.log("MAPPED", y);
-            return y;
+            return check;
     })
-    _filteredPages = _.chunk(_filteredPages, 3);
+    _filteredPages = _.chunk(_filteredPages , 5);
     _pageNumber = _filteredPages.length;
     _pageActive = 0;
-    console.log("PAGES_FILTERED", _filteredPages);
 };
 
 
 // Add Page
 function _addPage( page ){
     _pages.push( page );
+    reload();
 };
 
 // Delete Page
 function _deletePage( id ){
     _pages.forEach( function( page, index ){
-        if( page.id===id ){
+        if( page.id == id ){
             _pages.splice( index,1 )
         }
-    })
+    });
+    reload();
 };
 
 // Edit existing Page
 function _editPage( newpage ){
     _pages.forEach( function( page, index ){
-        if(page.id === newpage.id){
+        if(page.id == newpage.id){
             _pages.splice( index, 1, newpage );
         }
     });
+    reload();
 };
 
 // Open/Close - Edit/Add modal
 function _setModal( isVisible, dataToShow ){
-    if( isVisible ){
-        ModalState._setModalState( true, dataToShow )
-    }
-    else {
-        ModalState._setModalState( false, {} )
-    }
+        ModalState._setModalState( isVisible, dataToShow )
 };
 
 // Open/Close - Info Modal
@@ -120,21 +120,18 @@ var AppStore = merge( EventEmitter.prototype, {
 // Store Functionality
   getPages:function(){
       if ( _filteredPages[0] != null ){
-                    console.log('i am here');
           return _filteredPages[_pageActive];
 
       }
       else {
-        console.log('i am not here');
           return [];
       }
   },
 
   getModalState: function(){
     return {
-        data: ModalState._dataToShow,
         isVisible: ModalState._isModalVisible,
-        validTitle: ModalState._validTitle
+        data: ModalState._dataToShow
         };
   },
 
@@ -150,7 +147,6 @@ var AppStore = merge( EventEmitter.prototype, {
   },
 
   getPaginationState: function () {
-      console.log("tried");
       return {
           pageNumber: _pageNumber,
           pageActive: _pageActive

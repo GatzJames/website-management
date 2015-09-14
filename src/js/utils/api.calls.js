@@ -17,10 +17,8 @@ module.exports = {
     // Add a new Page
     addPage: function ( page ){
         page = formatData.toAzurePage( page );
-        console.log('PAGE-TO-ADD:', page); //Test
         request.post( '', page, {dataType: dtype })
                .then( function(res, azurePage){ // On success add Page to View
-                   console.log("pageGot: ", azurePage); // Test
                    AppActions.addPage( formatData.friendlyPage(azurePage) );
                })
                .catch(function(res, data, err){
@@ -30,17 +28,13 @@ module.exports = {
 
     // Delete a page by Id
     deletePage: function (id){
-        //id = parseInt( id );
-        //console.log('TRIED', id);
         request.delete(id)
                .then( function( res, deletedPage ){ // On success delete Page from View
-                   console.log("DELETED-PAGE: ", deletedPage); // Test
                    AppActions.deletePage( deletedPage.id );
                })
     },
     // Edit a page by id
     editPage: function ( page ){
-        console.log("EDIT-PAGE", page.id);
         page = formatData.toAzurePage( page );
         request.put(page.id, page, {dataType: dtype})
                .then( function(){ // After Confirmation Get the page to show it's Data

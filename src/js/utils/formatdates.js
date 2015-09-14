@@ -10,7 +10,7 @@ module.exports = {
     },
     toXSD: function (date){
         var offset = "" + date.getTimezoneOffset();
-        var sign = ( offset >= 0 ) ? "-" : "+" ;
+        var sign = ( offset >= 0 ) ? "+" : "-" ;
         var offsetUTC = sign + ( "0" + ( offset.substr(1)/60 ) + ":00" ).substr(-5);
         return date = date.toISOString().replace('Z','') + offsetUTC;
     }

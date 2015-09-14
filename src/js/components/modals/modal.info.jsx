@@ -41,14 +41,14 @@ var InfoModal = React.createClass({
                             <h5>Edit an existing page</h5>
                             <p>To edit an existing page press the
                             <div className="btn btn-default btn-sm">
-                                <i className="fa fa-pencil-square-o"></i>Edit
-                            </div>and edit your pages.
+                                <i className="fa fa-pencil-square-o"></i> Edit
+                            </div> and edit your pages.
                             </p>
                             <h5>Delete a page</h5>
                             <p>To delete a page just press the
                             <div className="btn btn-danger btn-sm">
-                                <i className="fa fa-trash-o"></i>Delete
-                            </div>button.
+                                <i className="fa fa-trash-o"></i> Delete
+                            </div> button.
                             <br/>
                             Notice that always a dialog will appear to ask for your confirmation.
                             </p>

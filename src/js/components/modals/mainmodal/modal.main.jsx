@@ -2,8 +2,9 @@ var AppStore = require ( '../../../stores/app.store.js' );
 var AppActions = require( '../../../actions/app.actions.js' );
 var ApiCalls = require( '../../../utils/api.calls.js' );
 var StoreMixins = require( '../../../mixins/store.mixins.js' );
-//var SwitchButton = require( './modalform/switch.button.jsx' );
+var validate = require( '../../../utils/validate.data' )
 var bootmodal = require( '../bootmodal' );
+
 function getModalState(){
     return AppStore.getModalState()
 }
@@ -12,62 +13,43 @@ var MainModal = React.createClass({
 
     mixins: [StoreMixins(getModalState)],
 
-    handleInputChange: function(){
-        this.setState({
-            data: {
-                title: this.refs.title.getDOMNode().value,
-                type: this.refs.type.getDOMNode().value,
-                description: this.refs.description.getDOMNode().value,
-                isActive: this.state.data.isActive,
-                id: this.state.data.id
-            }
-        })
+    handleInputChange: function(inputType, e){
+        e.preventDefault();
+        var newdata=this.state.data;
+        newdata[inputType] = e.target.value;
+        AppActions.setMainModal(true, newdata)
     },
 
     closeModal: function(){
-        AppActions.setMainModal(false);
+        AppActions.setMainModal(false ,{});
         bootmodal.Off();
     },
 
     savePage: function () {
-        if ( this.state.data.title === "") {
-            this.setState({ validTitle: false });
-        }
-        else{
-            if ( typeof this.state.data.id === "undefined" ) {
+        if ( validate.isValidTitle(this.state.data.title)) {
+
+            if ( this.state.data.id == null ) {
                 ApiCalls.addPage(this.state.data)
-                console.log("Add Page");
             }
             else {
-               ApiCalls.editPage(this.state.data)
-                console.log("Edit Page");
+                ApiCalls.editPage(this.state.data)
             }
             this.closeModal();
         }
     },
-    handleLeftClick: function(){
-        return this.setState({ data: {
-            title: this.state.data.title,
-            type: this.state.data.type,
-            description: this.state.data.description,
-            isActive: true,
-            id: this.state.data.id
-        }  })
-    },
-
-    handleRightClick: function (){
-        return this.setState({ data: {
-            title: this.state.data.title,
-            type: this.state.data.type,
-            description: this.state.data.description,
-            isActive: false,
-            id: this.state.data.id
-            }
-        })
+    handleClick: function( side, e){
+        e.preventDefault();
+        var newdata = this.state.data;
+        if ( side==="left" ){
+            newdata['isActive'] = 'online';
+        }
+        else{
+            newdata['isActive'] = 'offline';
+        }
+        AppActions.setMainModal(true, newdata);
     },
 
     render: function (){
-        console.log("ACTIVE:", this.state.data.isActive);
         var headerClass, headerText;
         if ( typeof this.state.data.id === "undefined" ){
             headerClass = "fa fa-plus";
@@ -77,11 +59,10 @@ var MainModal = React.createClass({
            headerClass = "fa fa-pencil-square-o";
            headerText = " Edit Page "
         }
-        console.log(this.state.data)
         var classes = (this.state.isVisible) ? "modal fade in" : "modal fade" ;
-        var titleClass = (this.state.validTitle)? "" : " has-error";
+        var titleClass = (validate.isValidTitle(this.state.data.title))? "" : " has-error";
         var switchStyle = {
-            left: (this.state.data.isActive) ? "0" : "50%"
+            left: (this.state.data.isActive=== 'online') ? "0" : "50%"
         }
         return(
             <div className={classes}>
@@ -97,11 +78,24 @@ var MainModal = React.createClass({
                             <form>
                                 <div className={"form-group" + titleClass}>
                                     <label htmlFor="form-title">Title:</label>
-                                    <input ref="title" value={this.state.data.title} onChange={this.handleInputChange} className="form-control" id="form-title"  maxLength="50" required/>
+                                    <input
+                                        ref="title"
+                                        value={this.state.data.title}
+                                        onChange={this.handleInputChange.bind(this, 'title')}
+                                        className="form-control"
+                                        id="form-title"
+                                        maxLength="50"
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="form-type">Type:</label>
-                                    <select ref="type" className="form-control" id="form-type" onChange={this.handleInputChange}>
+                                    <select
+                                        ref="type"
+                                        className="form-control"
+                                        value={this.state.data.type || 'Menu'}
+                                        id="form-type"
+                                        onChange={this.handleInputChange.bind(this, 'type')}
+                                    >
                                         <option>Menu</option>
                                         <option>Events</option>
                                         <option>Content</option>
@@ -109,14 +103,21 @@ var MainModal = React.createClass({
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="form-description">Description:</label>
-                                    <textarea ref="description" value={this.state.data.description} onChange={this.handleInputChange} className="form-control noresize" id="form-description" maxLength="200" rows="4"/>
+                                    <textarea
+                                        ref="description"
+                                        value={this.state.data.description || ''}
+                                        onChange={this.handleInputChange.bind(this, 'description')}
+                                        className="form-control noresize"
+                                        id="form-description"
+                                        rows="3"
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="form-status">Status:</label>
                                     <div className="switch-button" id="form-status">
                                         <span className="active" style={switchStyle}/>
-                                        <div className="switch-button-case left" onClick={this.handleLeftClick}><i className="fa fa-link"></i> Online</div>
-                                        <div className="switch-button-case right" onClick={this.handleRightClick}>Offline <i className="fa fa-chain-broken"></i></div>
+                                        <div className="switch-button-case left" onClick={this.handleClick.bind(this, 'left')}><i className="fa fa-link"></i> Online</div>
+                                        <div className="switch-button-case right" onClick={this.handleClick.bind(this, 'right')}>Offline <i className="fa fa-chain-broken"></i></div>
                                     </div>
                                 </div>
                             </form>
